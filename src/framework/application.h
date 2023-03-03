@@ -7,13 +7,18 @@
 #include "main/includes.h"
 #include "framework.h"
 #include "image.h"
+#include "shader.h"
+#include "mesh.h"
 
 class Application
 {
 public:
 
-	// Window
 
+	Mesh* quad;
+	Shader* shader;
+
+	// Window
 	SDL_Window* window = nullptr;
 	int window_width;
 	int window_height;

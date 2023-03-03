@@ -87,17 +87,28 @@ void Camera::UpdateViewMatrix()
 	view_matrix.SetIdentity();
 
 	// Comment this line to create your own projection matrix!
-	SetExampleViewMatrix();
+	//SetExampleViewMatrix();
 
 	// Remember how to fill a Matrix4x4 (check framework slides)
 	// Careful with the order of matrix multiplications, and be sure to use normalized vectors!
-	
+
+	Vector3 forward = center - eye;
+	Vector3 side = forward.Cross(this->up);
+	Vector3 top = side.Cross(forward);
+
+	forward.Normalize();
+	side.Normalize();
+	top.Normalize();
+
 	// Create the view matrix rotation
-	// ...
-	// view_matrix.M[3][3] = 1.0;
+	view_matrix.M[0][0] = side.x, view_matrix.M[0][1] = top.x, view_matrix.M[0][2] = -forward.x, view_matrix.M[0][3] = 0.0;
+	view_matrix.M[1][0] = side.y, view_matrix.M[1][1] = top.y, view_matrix.M[1][2] = -forward.y, view_matrix.M[1][3] = 0.0;
+	view_matrix.M[2][0] = side.z, view_matrix.M[2][1] = top.z, view_matrix.M[2][2] = -forward.z, view_matrix.M[2][3] = 0.0;
+	view_matrix.M[3][0] = 0.0, view_matrix.M[3][1] = 0.0, view_matrix.M[3][2] = 0.0, view_matrix.M[3][3] = 1.0;
 
 	// Translate view matrix
-	// ...
+	view_matrix.TranslateLocal(-this->eye.x, -this->eye.y, -this->eye.z);
+
 
 	UpdateViewProjectionMatrix();
 }
@@ -109,17 +120,33 @@ void Camera::UpdateProjectionMatrix()
 	projection_matrix.SetIdentity();
 
 	// Comment this line to create your own projection matrix!
-	SetExampleProjectionMatrix();
+	//SetExampleProjectionMatrix();
 
 	// Remember how to fill a Matrix4x4 (check framework slides)
-	
+
+	float farp = this->far_plane;
+	float nearp = this->near_plane;
+
 	if (type == PERSPECTIVE) {
-		// projection_matrix.M[2][3] = -1;
-		// ...
+		float f = 1 / tan((this->fov) * DEG2RAD / 2);
+		float aspectp = this->aspect;
+
+		projection_matrix.M[0][0] = f / aspectp, projection_matrix.M[0][1] = 0.0, projection_matrix.M[0][2] = 0.0, projection_matrix.M[0][3] = 0.0;
+		projection_matrix.M[1][0] = 0.0, projection_matrix.M[1][1] = f, projection_matrix.M[1][2] = 0.0, projection_matrix.M[1][3] = 0.0;
+		projection_matrix.M[2][0] = 0.0, projection_matrix.M[2][1] = 0.0, projection_matrix.M[2][2] = (farp + nearp) / (nearp - farp), projection_matrix.M[2][3] = -1.0;
+		projection_matrix.M[3][0] = 0.0, projection_matrix.M[3][1] = 0.0, projection_matrix.M[3][2] = 2 * ((farp * nearp) / (nearp - farp)), projection_matrix.M[3][3] = 0.0;
 	}
 	else if (type == ORTHOGRAPHIC) {
-		// ...
-	} 
+		float right = this->right;
+		float left = this->left;
+		float bottom = this->bottom;
+		float top = this->top;
+
+		projection_matrix.M[0][0] = 2 / (right - left), projection_matrix.M[0][1] = 0.0, projection_matrix.M[0][2] = 0.0, projection_matrix.M[0][3] = -((right + left) / (right - left));
+		projection_matrix.M[1][0] = 0.0, projection_matrix.M[1][1] = 2 / (top - bottom), projection_matrix.M[1][2] = 0.0, projection_matrix.M[1][3] = -((top + bottom) / (top - bottom));
+		projection_matrix.M[2][0] = 0.0, projection_matrix.M[2][1] = 0.0, projection_matrix.M[2][2] = -2 / (farp - nearp), projection_matrix.M[2][3] = -((farp + nearp) / (farp - nearp));
+		projection_matrix.M[3][0] = 0.0, projection_matrix.M[3][1] = 0.0, projection_matrix.M[3][2] = 0.0, projection_matrix.M[3][3] = 1.0;
+	}
 
 	UpdateViewProjectionMatrix();
 }

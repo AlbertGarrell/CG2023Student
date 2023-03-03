@@ -171,6 +171,12 @@ void Matrix44::Translate(float x, float y, float z)
 	*this = *this * T;
 }
 
+void Matrix44::Scale(float x, float y, float z) {
+	Matrix44 S;
+	S.SetScale(x, y, z);
+	*this = *this * S;
+}
+
 void Matrix44::Rotate( float angle_in_rad, const Vector3& axis )
 {
 	Matrix44 R;
@@ -194,6 +200,13 @@ void Matrix44::TranslateLocal(float x, float y, float z)
 	*this = T * *this;
 }
 
+void Matrix44::ScaleLocal(float x, float y, float z)
+{
+	Matrix44 S;
+	S.SetScale(x, y, z);
+	*this = S * *this;
+}
+
 void Matrix44::RotateLocal( float angle_in_rad, const Vector3& axis )
 {
 	Matrix44 R;
@@ -208,6 +221,15 @@ void Matrix44::SetTranslation(float x, float y, float z)
 	m[12] = x;
 	m[13] = y;
 	m[14] = z;
+}
+
+//To create a Scale matrix
+void Matrix44::SetScale(float x, float y, float z)
+{
+	SetIdentity();
+	m[0] = x;
+	m[5] = y;
+	m[10] = z;
 }
 
 //To create a rotation matrix

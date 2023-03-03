@@ -2,6 +2,8 @@
 #include "mesh.h"
 #include "shader.h"
 #include "utils.h" 
+//#include "entity.h"
+#include "texture.h"
 
 Application::Application(const char* caption, int width, int height)
 {
@@ -26,14 +28,36 @@ Application::~Application()
 void Application::Init(void)
 {
 	std::cout << "Initiating app..." << std::endl;
+	/******P4*****/
+	shader = new Shader();
+	quad = new Mesh();
+	shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
+	quad->CreateQuad();
+	int option;
+	option = 0;
+	/////
 }
 
 // Render one frame
 void Application::Render(void)
 {
-	// ...
+	/******P4*****/
+	/*Clean Buffer*/
+	shader->Enable();
+	/*Uniforms*/
 
-	framebuffer.Render();
+	/*
+	//Per 3D
+	shader->SetMatrix44("u_model", entity->model_matrix);
+	shader->SetMatrix44("u_viewprojection", camera->viewprojection_matrix);
+	//
+	*/
+
+	//shader->SetFloat("u_option", option); //option és la opció del menu
+	quad->Render();
+	shader->Disable();
+	/////
+	
 }
 
 // Called after render
