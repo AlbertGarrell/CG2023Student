@@ -33,8 +33,7 @@ void Application::Init(void)
 	quad = new Mesh();
 	shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
 	quad->CreateQuad();
-	int option;
-	option = 0;
+
 	/////
 }
 
@@ -45,7 +44,7 @@ void Application::Render(void)
 	/*Clean Buffer*/
 	shader->Enable();
 	/*Uniforms*/
-
+	shader->SetFloat("u_option", option); //option és la opció del menu
 	/*
 	//Per 3D
 	shader->SetMatrix44("u_model", entity->model_matrix);
@@ -53,11 +52,8 @@ void Application::Render(void)
 	//
 	*/
 
-	//shader->SetFloat("u_option", option); //option és la opció del menu
 	quad->Render();
 	shader->Disable();
-	/////
-	
 }
 
 // Called after render
@@ -71,7 +67,24 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 {
 	// KEY CODES: https://wiki.libsdl.org/SDL2/SDL_Keycode
 	switch(event.keysym.sym) {
-		case SDLK_ESCAPE: exit(0); break; // ESC key, kill the app
+		case SDLK_ESCAPE: // ESC key, kill the app
+			exit(0);
+			break;
+		case SDLK_a: //3.1 a)
+			option = 0.0;
+			break;
+		case SDLK_b: //3.1 b)
+			option = 1.0;
+			break;
+		case SDLK_c: //3.1 c)
+			option = 2.0;
+			break;
+		case SDLK_d:
+			option = 3.0;
+			break;
+		case SDLK_e:
+			option = 4.0;
+			break;
 	}
 }
 

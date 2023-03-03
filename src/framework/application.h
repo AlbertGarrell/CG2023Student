@@ -17,6 +17,7 @@ public:
 
 	Mesh* quad;
 	Shader* shader;
+	float option = -1.0;
 
 	// Window
 	SDL_Window* window = nullptr;
