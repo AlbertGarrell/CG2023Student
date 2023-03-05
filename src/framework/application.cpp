@@ -80,10 +80,19 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 			option = 2.0;
 			break;
 		case SDLK_d:
-			option = 3.0;
+			option = 3.0; //3.1 d)
 			break;
-		case SDLK_e:
-			option = 4.0;
+
+
+
+		case SDLK_j:
+			option = 10;
+			break;
+		case SDLK_k:
+			option = 11;
+			break;
+		case SDLK_l:
+			option = 12;
 			break;
 	}
 }
