@@ -34,6 +34,13 @@ void Application::Init(void)
 	shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
 	quad->CreateQuad();
 
+	fruites = new Texture();
+	bool c_texture1 = fruites->Load("/images/fruits.png");
+	if (c_texture1 == false) {
+		printf("Error al carregar la texture 'fruits.png'.\n");
+		exit(0);
+	}
+
 	/////
 }
 
@@ -45,6 +52,7 @@ void Application::Render(void)
 	shader->Enable();
 	/*Uniforms*/
 	shader->SetFloat("u_option", option); //option és la opció del menu
+	shader->SetTexture("u_texture", fruites);
 	/*
 	//Per 3D
 	shader->SetMatrix44("u_model", entity->model_matrix);
@@ -69,6 +77,15 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 	switch(event.keysym.sym) {
 		case SDLK_ESCAPE: // ESC key, kill the app
 			exit(0);
+			break;
+		case SDLK_1: //Ex 3.1
+			shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
+			break;
+		case SDLK_2: //Ex 3.2
+			shader = Shader::Get("/shaders/image.vs", "/shaders/image.fs");
+			break;
+		case SDLK_3: //Ex 3.3
+			shader = Shader::Get("/shaders/image.vs", "/shaders/image.fs");
 			break;
 		case SDLK_a: //3.1 a)
 			option = 0.0;
