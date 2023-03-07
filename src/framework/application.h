@@ -19,6 +19,7 @@ public:
 	Shader* shader;
 	Texture* fruites;
 	float option = -1.0;
+	float option3 = -1.0;
 	float fsopt = -1.0;
 
 	// Window
