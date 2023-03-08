@@ -104,6 +104,14 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 			break;
 
 
+		case SDLK_z:
+			fsopt = 0.0;  //3.2 z
+			break;
+
+		case SDLK_x:
+			fsopt = 1.0;  //3.2 b
+			break;
+
 
 		case SDLK_j:
 			option = 10;
