@@ -10,7 +10,7 @@ Entity::Entity(Mesh* mesh) {
 	this->mode = eRenderMode::WIREFRAME;
 }
 
-Entity::Entity(Mesh* mesh, Image* texture) {
+Entity::Entity(Mesh* mesh, Texture* texture) {
 
 	this->mesh = mesh;
 	this->modelMatrix = Matrix44();
@@ -21,6 +21,10 @@ Entity::Entity(Mesh* mesh, Image* texture) {
 
 Matrix44 Entity::GetModelMatrix() {
 	return this->modelMatrix;
+}
+
+Texture* Entity::GetTexture() {
+	return this->texture;
 }
 
 bool Entity::GetBoolTexture() {

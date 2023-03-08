@@ -24,7 +24,7 @@ public:
 
 
 	Mesh* lee_mesh;
-	Image* lee_texture;
+	Texture* lee_texture;
 	Entity lee_entity;
 
 	// Window

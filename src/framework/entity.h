@@ -3,6 +3,7 @@
 #include "framework.h"
 #include "mesh.h"
 #include "image.h"
+#include "texture.h"
 
 enum class eRenderMode {
 	POINTCLOUD, //punts
@@ -31,14 +32,14 @@ class Entity
 private:
 	Mesh* mesh;
 	Matrix44 modelMatrix;
-	Image* texture;
+	Texture* texture;
 	bool btext = false;
 	eRenderMode mode = eRenderMode::TRIANGLES_INTERPOLATED;
 
 public:
 	Entity();
 	Entity(Mesh* mesh);
-	Entity(Mesh* mesh, Image* texture);
+	Entity(Mesh* mesh, Texture* texture);
 	std::vector<Vector3> vertexs;
 	std::vector<Vector2> uvs;
 
@@ -47,6 +48,7 @@ public:
 	void UpdateEntity(float seconds_elapsed, Vector3 rotate, Vector3 scale, Vector3 translate);
 
 	Matrix44 GetModelMatrix();
+	Texture* GetTexture();
 
 	//Funcions per accedir al bool de textures i modificar-lo
 	bool GetBoolTexture();
