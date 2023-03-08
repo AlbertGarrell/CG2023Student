@@ -52,9 +52,10 @@ void Application::Render(void)
 	shader->Enable();
 	/*Uniforms*/
 	shader->SetFloat("u_option", option); //option és la opció del menu
-	shader->SetFloat("u_option3", option3); //option és la opció del menu
+	//shader->SetFloat("u_option3", option3); //option és la opció del menu
 	shader->SetTexture("u_texture", fruites);
 	shader->SetFloat("u_time", time);
+	shader->SetFloat("u_aspectRatio", this->window_width / this->window_height);
 	/*
 	//Per 3D
 	shader->SetMatrix44("u_model", entity->model_matrix);
@@ -82,12 +83,15 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 			break;
 		case SDLK_1: //Ex 3.1
 			shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
+			option = -1.0;
 			break;
 		case SDLK_2: //Ex 3.2
 			shader = Shader::Get("/shaders/image.vs", "/shaders/image.fs");
+			option = -1.0;
 			break;
 		case SDLK_3: //Ex 3.3
 			shader = Shader::Get("/shaders/image2.vs", "/shaders/image2.fs");
+			option = -1.0;
 			break;
 		case SDLK_a: //3.1 a)
 			option = 0.0;
@@ -108,16 +112,16 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 
 
 		case SDLK_j:
-			option3 = 0;
+			option = 0;
 			break;
 		case SDLK_k:
-			option3 = 1;
+			option = 1;
 			break;
 		case SDLK_l:
-			option3 = 2;
+			option = 2;
 			break;
 		case SDLK_h:
-			option3 = 3;
+			option = 3;
 			break;
 	}
 }
