@@ -17,8 +17,6 @@ void main(){
         float mov = sin(u_time) * N;
         v_uvs = vec2(floor(v_uv.x*mov)/mov, floor(v_uv.y*mov)/mov);
 
-
-
         texture_color = texture2D(u_texture, v_uvs);
     }
     else if(u_option == 1.0){
@@ -35,9 +33,6 @@ void main(){
         float x = fract(v_uv.x*N);
         float y = fract(v_uv.y*N);
         v_uvs = vec2(x,y);
-
-
-        texture_color = texture2D(u_texture, v_uvs);
     }
     else if(u_option == 3.0){
         vec2 v_uvs = v_uv;
@@ -47,10 +42,15 @@ void main(){
         v_uvs = vec2(v_uvs.x - 0.5) * (u_aspectRatio, v_uvs.y - 0.5) * mat2(cos_factor, sin_factor, -sin_factor, cos_factor);
         v_uvs += 0.5;
     }
+    else if(u_option == 4.0){
+        //float x = v_uv.x + sin(v_uv.x);
+        float x = distance(v_uv.x, 0.5);
+        //float y = v_uv.y + sin(v_uv.y);
+        float y = distance(v_uv.y, 0.5);
+        v_uvs = vec2(x,y);
+    }
     else{
         v_uvs = v_uv;
-
-        texture_color = texture2D(u_texture, v_uvs);
     }
 
     texture_color = texture2D(u_texture, v_uvs);

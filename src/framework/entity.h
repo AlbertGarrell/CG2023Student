@@ -46,6 +46,8 @@ public:
 	void SetModelMatrix(Vector3 transalte, float angle, Vector3 rotate, Vector3 scale);
 	void UpdateEntity(float seconds_elapsed, Vector3 rotate, Vector3 scale, Vector3 translate);
 
+	Matrix44 GetModelMatrix();
+
 	//Funcions per accedir al bool de textures i modificar-lo
 	bool GetBoolTexture();
 	void SetBoolTexture(bool btext);
