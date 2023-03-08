@@ -24,7 +24,7 @@ void main()
 		//color = vec3(v_uv.x, v_uv.y,0);
 	}
 	else if(u_option == 4.0){
-
+		//
 	}
 	else if(u_option == 5.0){ /*3.1 f*/ //Lletra f
 		float step_x = step(v_uv.x*10,(floor(v_uv.x*10)+(floor(v_uv.x*10)+1))/2);
