@@ -41,7 +41,28 @@ void Application::Init(void)
 		exit(0);
 	}
 
-	/////
+	/*  CARREGUEM MESH I TEXTURE LEE, INICIALITZEM ENTITY  */
+	lee_mesh = new Mesh();
+	bool l_mesh1 = lee_mesh->LoadOBJ("/meshes/lee.obj");
+	if (l_mesh1 == false) {
+		printf("Error al carregar la mesh 'lee.obj'.\n");
+		exit(0);
+	}
+	lee_texture = new Image();
+	bool l_texture = lee_texture->LoadTGA("/textures/lee_color_specular.tga", true);
+	if (l_texture == false) {
+		printf("Error al carregar la texture 'lee_color_specular.tga'.\n");
+		exit(0);
+	}
+	lee_entity = Entity(lee_mesh, lee_texture);
+	lee_entity.SetModelMatrix(Vector3(-0.5, 0.0, 0.0), 0.0, Vector3(0.0, 0.0, 0.0), Vector3(2.0, 2.0, 2.0));
+
+
+
+	camera = Camera();
+	camera.LookAt(Vector3(0, 0, 4.5), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	//camera.SetPerspective(45, framebuffer.width / framebuffer.height, 0.01, 500);
+	camera.SetOrthographic(-1.5, 1.5, 1.5, -1.5, -1.5, 1.5);
 }
 
 // Render one frame
@@ -56,12 +77,13 @@ void Application::Render(void)
 	shader->SetTexture("u_texture", fruites);
 	shader->SetFloat("u_time", time);
 	shader->SetFloat("u_aspectRatio", this->window_width / this->window_height);
-	/*
+	
 	//Per 3D
-	shader->SetMatrix44("u_model", entity->model_matrix);
-	shader->SetMatrix44("u_viewprojection", camera->viewprojection_matrix);
+	shader->SetMatrix44("u_model", lee_entity.GetModelMatrix());
+	//shader->SetTexture("u_lee_texture", lee_entity.);
+	shader->SetMatrix44("u_viewprojection", camera.GetViewProjectionMatrix());
 	//
-	*/
+	
 
 	quad->Render();
 	shader->Disable();
@@ -93,43 +115,27 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 			shader = Shader::Get("/shaders/image2.vs", "/shaders/image2.fs");
 			option = -1.0;
 			break;
-		case SDLK_a: //3.1 a)
+		case SDLK_a: //3.1 i 3.2 a)
 			option = 0.0;
 			break;
-		case SDLK_b: //3.1 b)
+		case SDLK_b: //3.1 i 3.2 b)
 			option = 1.0;
 			break;
-		case SDLK_c: //3.1 c)
+		case SDLK_c: //3.1 i 3.2 c)
 			option = 2.0;
 			break;
 		case SDLK_d:
-			option = 3.0; //3.1 d)
+			option = 3.0; //3.1 i 3.2 d)
+			break;
+		case SDLK_e:
+			option = 4.0; //3.1 i 3.2 e)
 			break;
 		case SDLK_f:
-			option = 5.0; //3.1 f)
+			option = 5.0; //3.1 i 3.2 f)
 			break;
 
-
-		case SDLK_z:
-			fsopt = 0.0;  //3.2 z
-			break;
-
-		case SDLK_x:
-			fsopt = 1.0;  //3.2 b
-			break;
-
-
-		case SDLK_j:
-			option = 0;
-			break;
-		case SDLK_k:
-			option = 1;
-			break;
-		case SDLK_l:
-			option = 2;
-			break;
-		case SDLK_h:
-			option = 3;
+		case SDLK_r: //Reiniciem i mostrem limatge normal o bé la pantalla en blanc si és ex3.1
+			option = -1.0;
 			break;
 	}
 }

@@ -9,18 +9,23 @@
 #include "image.h"
 #include "shader.h"
 #include "mesh.h"
+#include "entity.h"
+#include "camera.h"
 
 class Application
 {
 public:
 
-
+	Camera camera;
 	Mesh* quad;
 	Shader* shader;
 	Texture* fruites;
 	float option = -1.0;
-	//float option3 = -1.0;
-	float fsopt = -1.0;
+
+
+	Mesh* lee_mesh;
+	Image* lee_texture;
+	Entity lee_entity;
 
 	// Window
 	SDL_Window* window = nullptr;

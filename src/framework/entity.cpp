@@ -19,8 +19,9 @@ Entity::Entity(Mesh* mesh, Image* texture) {
 	this->btext = true;
 }
 
-
-//
+Matrix44 Entity::GetModelMatrix() {
+	return this->modelMatrix;
+}
 
 bool Entity::GetBoolTexture() {
 	return this->btext;
