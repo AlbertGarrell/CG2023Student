@@ -1,5 +1,5 @@
 // Global variables from the CPU
-uniform mat4 u_model;
+uniform mat4 u_model; 
 uniform mat4 u_viewprojection;
 
 // Variables to pass to the fragment shader

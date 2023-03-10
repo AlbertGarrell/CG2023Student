@@ -48,14 +48,14 @@ void Application::Init(void)
 		printf("Error al carregar la mesh 'lee.obj'.\n");
 		exit(0);
 	}
-	lee_texture = new Image();
-	bool l_texture = lee_texture->LoadTGA("/textures/lee_color_specular.tga", true);
+	lee_texture = new Texture();
+	bool l_texture = lee_texture->Get("/textures/lee_color_specular.tga");
 	if (l_texture == false) {
 		printf("Error al carregar la texture 'lee_color_specular.tga'.\n");
 		exit(0);
 	}
 	lee_entity = Entity(lee_mesh, lee_texture);
-	lee_entity.SetModelMatrix(Vector3(-0.5, 0.0, 0.0), 0.0, Vector3(0.0, 0.0, 0.0), Vector3(2.0, 2.0, 2.0));
+	//lee_entity.SetModelMatrix(Vector3(-0.5, 0.0, 0.0), 0.0, Vector3(0.0, 0.0, 0.0), Vector3(2.0, 2.0, 2.0));
 
 
 
@@ -80,7 +80,6 @@ void Application::Render(void)
 	
 	//Per 3D
 	shader->SetMatrix44("u_model", lee_entity.GetModelMatrix());
-	//shader->SetTexture("u_lee_texture", lee_entity.);
 	shader->SetMatrix44("u_viewprojection", camera.GetViewProjectionMatrix());
 	//
 	
@@ -113,6 +112,10 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 			break;
 		case SDLK_3: //Ex 3.3
 			shader = Shader::Get("/shaders/image2.vs", "/shaders/image2.fs");
+			option = -1.0;
+			break;
+		case SDLK_4:
+			shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");
 			option = -1.0;
 			break;
 		case SDLK_a: //3.1 i 3.2 a)

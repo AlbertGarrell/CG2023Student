@@ -24,8 +24,16 @@ void main()
 		//color = vec3(v_uv.x, v_uv.y,0);
 	}
 	else if(u_option == 4.0){
-		//
+		float alpha = radians(v_uv.x * 360.0);
+		float x = sin(alpha);
+		float y = step(x * 0.2 + 0.5, v_uv.y);
+		
+		vec3 part_inf = mix(vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0), v_uv.y * (1.0 - y));
+		vec3 part_sup = mix(vec3(0.0, 1.0 * y, 0.0), vec3(0.0, 0.0, 0.0), v_uv.y * y);
+
+		color = part_inf + part_sup;
 	}
+
 	else if(u_option == 5.0){ /*3.1 f*/ //Lletra f
 		float step_x = step(v_uv.x*10,(floor(v_uv.x*10)+(floor(v_uv.x*10)+1))/2);
     	float step_y = step(v_uv.y*10,(floor(v_uv.y*10)+(floor(v_uv.y*10)+1))/2);
