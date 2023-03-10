@@ -55,7 +55,7 @@ void Application::Init(void)
 		exit(0);
 	}
 	lee_entity = Entity(lee_mesh, lee_texture);
-	lee_entity.SetModelMatrix(Vector3(-0.5, 0.0, 0.0), 0.0, Vector3(0.0, 0.0, 0.0), Vector3(2.0, 2.0, 2.0));
+	//lee_entity.SetModelMatrix(Vector3(-0.5, 0.0, 0.0), 0.0, Vector3(0.0, 0.0, 0.0), Vector3(2.0, 2.0, 2.0));
 
 
 
