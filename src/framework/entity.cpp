@@ -7,16 +7,21 @@ Entity::Entity(Mesh* mesh) {
 
 	this->mesh = mesh;
 	this->modelMatrix = Matrix44();
-	this->mode = eRenderMode::WIREFRAME;
+	//this->mode = eRenderMode::WIREFRAME;
 }
 
-Entity::Entity(Mesh* mesh, Texture* texture) {
+Entity::Entity(Mesh* mesh, Texture* texture, Camera* camera, Shader* shader) {
 
 	this->mesh = mesh;
 	this->modelMatrix = Matrix44();
 	this->texture = texture;
-	this->mode = eRenderMode::TRIANGLES_INTERPOLATED;
-	this->btext = true;
+	this->camera = camera;
+	this->shader = shader;
+
+
+
+	//this->mode = eRenderMode::TRIANGLES_INTERPOLATED;
+	//this->btext = true;
 }
 
 Matrix44 Entity::GetModelMatrix() {
@@ -27,6 +32,7 @@ Texture* Entity::GetTexture() {
 	return this->texture;
 }
 
+/*
 bool Entity::GetBoolTexture() {
 	return this->btext;
 }
@@ -39,10 +45,20 @@ eRenderMode Entity::GetPaintMode() {
 void Entity::SetPaintMode(eRenderMode mode) {
 	this->mode = mode;
 }
+*/
 
 
-void Entity::Render(Image* framebuffer, Camera* camera, const Color& c, FloatImage* zBuffer, bool oclusion) {
-
+void Entity::Render() {
+	//this->shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");
+	//this->shader->Enable();
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	this->shader->SetMatrix44("u_model", this->modelMatrix);
+	this->shader->SetMatrix44("u_viewprojection", camera->GetViewProjectionMatrix());
+	this->shader->SetTexture("u_texture1", this->texture);
+	this->mesh->Render();
+	glDisable(GL_DEPTH_TEST);
+	//this->shader->Disable();
 }
 
 void Entity::SetModelMatrix(Vector3 translate, float angle, Vector3 rotate, Vector3 scale) {

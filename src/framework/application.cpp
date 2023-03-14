@@ -31,7 +31,8 @@ void Application::Init(void)
 	/******P4*****/
 	shader = new Shader();
 	quad = new Mesh();
-	shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
+	//shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
+	shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");
 	quad->CreateQuad();
 
 	fruites = new Texture();
@@ -43,26 +44,26 @@ void Application::Init(void)
 
 	/*  CARREGUEM MESH I TEXTURE LEE, INICIALITZEM ENTITY  */
 	lee_mesh = new Mesh();
-	bool l_mesh1 = lee_mesh->LoadOBJ("/meshes/lee.obj");
+	bool l_mesh1 = lee_mesh->LoadOBJ("meshes/anna.obj");
 	if (l_mesh1 == false) {
 		printf("Error al carregar la mesh 'lee.obj'.\n");
 		exit(0);
 	}
 	lee_texture = new Texture();
-	bool l_texture = lee_texture->Get("/textures/lee_color_specular.tga");
+	bool l_texture = lee_texture->Load("textures/anna_color_specular.tga");
 	if (l_texture == false) {
 		printf("Error al carregar la texture 'lee_color_specular.tga'.\n");
 		exit(0);
 	}
-	lee_entity = Entity(lee_mesh, lee_texture);
-	//lee_entity.SetModelMatrix(Vector3(-0.5, 0.0, 0.0), 0.0, Vector3(0.0, 0.0, 0.0), Vector3(2.0, 2.0, 2.0));
+	
+	camera = new Camera();
+	camera->LookAt(Vector3(0.0, 0.0, 1.0), Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0));
+	camera->SetPerspective(45, framebuffer.width / float(framebuffer.height), 0.01, 1000.0);
+	//camera.SetOrthographic(-1.5, 1.5, 1.5, -1.5, -1.5, 1.5);
 
 
-
-	camera = Camera();
-	camera.LookAt(Vector3(0, 0, 4.5), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	//camera.SetPerspective(45, framebuffer.width / framebuffer.height, 0.01, 500);
-	camera.SetOrthographic(-1.5, 1.5, 1.5, -1.5, -1.5, 1.5);
+	lee_entity = Entity(lee_mesh, lee_texture, camera, shader);
+	lee_entity.SetModelMatrix(Vector3(0.0, 0.1, 0.1), 0.0, Vector3(1.0, 1.0, 1.0), Vector3(1.0, 1.0, 1.0));
 }
 
 // Render one frame
@@ -70,22 +71,21 @@ void Application::Render(void)
 {
 	/******P4*****/
 	/*Clean Buffer*/
-	shader->Enable();
 	/*Uniforms*/
-	shader->SetFloat("u_option", option); //option és la opció del menu
-	//shader->SetFloat("u_option3", option3); //option és la opció del menu
-	shader->SetTexture("u_texture", fruites);
-	shader->SetFloat("u_time", time);
-	shader->SetFloat("u_aspectRatio", this->window_width / this->window_height);
-	
-	//Per 3D
-	shader->SetMatrix44("u_model", lee_entity.GetModelMatrix());
-	shader->SetMatrix44("u_viewprojection", camera.GetViewProjectionMatrix());
-	//
+	Matrix44 modelMatrix = Matrix44();
+
+	shader->Enable();
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_EQUAL);
+	shader->SetMatrix44("u_model", modelMatrix);
+	shader->SetMatrix44("u_viewprojection", camera->viewprojection_matrix);
+	shader->SetTexture("u_texture1", lee_texture);
+	lee_mesh->Render();
+	glDisable(GL_DEPTH_TEST);
+	shader->Disable();
+		//lee_entity.Render();
 	
 
-	quad->Render();
-	shader->Disable();
 }
 
 // Called after render
@@ -105,18 +105,22 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 		case SDLK_1: //Ex 3.1
 			shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
 			option = -1.0;
+			menu = 0;
 			break;
 		case SDLK_2: //Ex 3.2
 			shader = Shader::Get("/shaders/image.vs", "/shaders/image.fs");
 			option = -1.0;
+			menu = 0;
 			break;
 		case SDLK_3: //Ex 3.3
 			shader = Shader::Get("/shaders/image2.vs", "/shaders/image2.fs");
 			option = -1.0;
+			menu = 0;
 			break;
 		case SDLK_4:
 			shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");
 			option = -1.0;
+			menu = 1;
 			break;
 		case SDLK_a: //3.1 i 3.2 a)
 			option = 0.0;

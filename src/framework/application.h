@@ -16,11 +16,12 @@ class Application
 {
 public:
 
-	Camera camera;
+	Camera* camera;
 	Mesh* quad;
 	Shader* shader;
 	Texture* fruites;
 	float option = -1.0;
+	int menu = 0;
 
 
 	Mesh* lee_mesh;

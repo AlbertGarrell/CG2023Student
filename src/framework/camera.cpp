@@ -87,11 +87,12 @@ void Camera::UpdateViewMatrix()
 	view_matrix.SetIdentity();
 
 	// Comment this line to create your own projection matrix!
-	//SetExampleViewMatrix();
+	SetExampleViewMatrix();
 
 	// Remember how to fill a Matrix4x4 (check framework slides)
 	// Careful with the order of matrix multiplications, and be sure to use normalized vectors!
 
+	/*
 	Vector3 forward = center - eye;
 	Vector3 side = forward.Cross(this->up);
 	Vector3 top = side.Cross(forward);
@@ -108,7 +109,7 @@ void Camera::UpdateViewMatrix()
 
 	// Translate view matrix
 	view_matrix.TranslateLocal(-this->eye.x, -this->eye.y, -this->eye.z);
-
+	*/
 
 	UpdateViewProjectionMatrix();
 }
@@ -120,10 +121,11 @@ void Camera::UpdateProjectionMatrix()
 	projection_matrix.SetIdentity();
 
 	// Comment this line to create your own projection matrix!
-	//SetExampleProjectionMatrix();
+	SetExampleProjectionMatrix();
 
 	// Remember how to fill a Matrix4x4 (check framework slides)
 
+	/*
 	float farp = this->far_plane;
 	float nearp = this->near_plane;
 
@@ -147,6 +149,7 @@ void Camera::UpdateProjectionMatrix()
 		projection_matrix.M[2][0] = 0.0, projection_matrix.M[2][1] = 0.0, projection_matrix.M[2][2] = -2 / (farp - nearp), projection_matrix.M[2][3] = -((farp + nearp) / (farp - nearp));
 		projection_matrix.M[3][0] = 0.0, projection_matrix.M[3][1] = 0.0, projection_matrix.M[3][2] = 0.0, projection_matrix.M[3][3] = 1.0;
 	}
+	*/
 
 	UpdateViewProjectionMatrix();
 }

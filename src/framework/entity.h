@@ -4,6 +4,7 @@
 #include "mesh.h"
 #include "image.h"
 #include "texture.h"
+#include "shader.h"
 
 enum class eRenderMode {
 	POINTCLOUD, //punts
@@ -31,19 +32,24 @@ class Entity
 
 private:
 	Mesh* mesh;
-	Matrix44 modelMatrix;
 	Texture* texture;
-	bool btext = false;
-	eRenderMode mode = eRenderMode::TRIANGLES_INTERPOLATED;
+	Camera* camera;
+	Shader* shader;
+
+
+	//bool btext = false;
+	//eRenderMode mode = eRenderMode::TRIANGLES_INTERPOLATED;
 
 public:
 	Entity();
 	Entity(Mesh* mesh);
-	Entity(Mesh* mesh, Texture* texture);
+	Entity(Mesh* mesh, Texture* texture, Camera* camera, Shader* shader);
 	std::vector<Vector3> vertexs;
 	std::vector<Vector2> uvs;
+	Matrix44 modelMatrix;
 
-	void Render(Image* framebuffer, Camera* camera, const Color& c, FloatImage* zBuffer, bool oculsions);
+	void Render();
+	//void Render(Image* framebuffer, Camera* camera, const Color& c, FloatImage* zBuffer, bool oculsions, Shader* shader);
 	void SetModelMatrix(Vector3 transalte, float angle, Vector3 rotate, Vector3 scale);
 	void UpdateEntity(float seconds_elapsed, Vector3 rotate, Vector3 scale, Vector3 translate);
 
@@ -51,11 +57,13 @@ public:
 	Texture* GetTexture();
 
 	//Funcions per accedir al bool de textures i modificar-lo
+	/*
 	bool GetBoolTexture();
 	void SetBoolTexture(bool btext);
 	//Funcions per accedir al mode de pintar i canviar-lo
 	eRenderMode GetPaintMode();
 	void SetPaintMode(eRenderMode mode);
+	*/
 
 
 };
