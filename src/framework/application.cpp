@@ -42,7 +42,7 @@ void Application::Init(void)
 		exit(0);
 	}
 
-	/*  CARREGUEM MESH I TEXTURE LEE, INICIALITZEM ENTITY  */
+	/* CARREGUEM MESH I TEXTURE LEE, INICIALITZEM ENTITY  */
 	lee_mesh = new Mesh();
 	bool l_mesh1 = lee_mesh->LoadOBJ("meshes/anna.obj");
 	if (l_mesh1 == false) {
@@ -76,7 +76,7 @@ void Application::Render(void)
 
 	shader->Enable();
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_EQUAL);
+	glDepthFunc(GL_LEQUAL);
 	shader->SetMatrix44("u_model", modelMatrix);
 	shader->SetMatrix44("u_viewprojection", camera->viewprojection_matrix);
 	shader->SetTexture("u_texture1", lee_texture);
@@ -84,7 +84,7 @@ void Application::Render(void)
 	glDisable(GL_DEPTH_TEST);
 	shader->Disable();
 		//lee_entity.Render();
-	
+
 
 }
 
