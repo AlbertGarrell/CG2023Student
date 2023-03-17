@@ -58,12 +58,12 @@ void Application::Init(void)
 	
 	camera = new Camera();
 	camera->LookAt(Vector3(0.0, 0.0, 1.0), Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0));
-	camera->SetPerspective(45, framebuffer.width / float(framebuffer.height), 0.01, 1000.0);
+	camera->SetPerspective(45, framebuffer.width / framebuffer.height, 0.01, 500);
 	//camera.SetOrthographic(-1.5, 1.5, 1.5, -1.5, -1.5, 1.5);
 
 
 	lee_entity = Entity(lee_mesh, lee_texture, camera, shader);
-	lee_entity.SetModelMatrix(Vector3(0.0, 0.1, 0.1), 0.0, Vector3(1.0, 1.0, 1.0), Vector3(1.0, 1.0, 1.0));
+	lee_entity.SetModelMatrix(Vector3(0.0, -0.25, 0.0), 0.0, Vector3(1.0, 1.0, 1.0), Vector3(1.0, 1.0, 1.0));
 }
 
 // Render one frame
@@ -72,18 +72,21 @@ void Application::Render(void)
 	/******P4*****/
 	/*Clean Buffer*/
 	/*Uniforms*/
-	Matrix44 modelMatrix = Matrix44();
+
 
 	shader->Enable();
+
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	shader->SetMatrix44("u_model", modelMatrix);
+	shader->SetMatrix44("u_model", lee_entity.GetModelMatrix());
 	shader->SetMatrix44("u_viewprojection", camera->viewprojection_matrix);
 	shader->SetTexture("u_texture1", lee_texture);
 	lee_mesh->Render();
 	glDisable(GL_DEPTH_TEST);
 	shader->Disable();
-		//lee_entity.Render();
+	
+	
+	//lee_entity.Render();
 
 
 }
@@ -144,6 +147,30 @@ void Application::OnKeyPressed( SDL_KeyboardEvent event )
 		case SDLK_r: //Reiniciem i mostrem limatge normal o bé la pantalla en blanc si és ex3.1
 			option = -1.0;
 			break;
+
+
+
+
+
+		case SDLK_p: //Perspective i pintar tot
+			camera->SetPerspective(45, framebuffer.width / framebuffer.height, 0.01, 500);
+			menu = 1;
+			break;
+		case SDLK_o: //Orthografic i pintar tot
+			camera->SetOrthographic(-1.5, 1.5, 1.5, -1.5, -1.5, 1.5);
+			menu = 1;
+			break;
+
+		case SDLK_LEFT:
+			menu = 1;
+			camera->eye = camera->eye - 0.1;
+			camera->UpdateViewMatrix();
+			break;
+		case SDLK_RIGHT:
+			menu = 1;
+			camera->eye = camera->eye + 0.1;
+			camera->UpdateViewMatrix();
+			break;
 	}
 }
 
@@ -170,7 +197,14 @@ void Application::OnWheel(SDL_MouseWheelEvent event)
 {
 	float dy = event.preciseY;
 
-	// ...
+	if (dy >= 0) {
+		camera->eye.z = camera->eye.z - 0.2;
+	}
+	else if (dy < 0) {
+		camera->eye.z = camera->eye.z + 0.2;
+
+	}
+	camera->UpdateViewMatrix();
 }
 
 void Application::OnFileChanged(const char* filename)

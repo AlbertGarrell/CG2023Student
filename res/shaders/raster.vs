@@ -1,4 +1,4 @@
-// Global variables from the CPU
+// Global variables from the CPU 
 uniform mat4 u_model; 
 uniform mat4 u_viewprojection;
 

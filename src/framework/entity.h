@@ -31,6 +31,7 @@ class Entity
 	} sTriangleInfo;
 
 private:
+	Matrix44 modelMatrix;
 	Mesh* mesh;
 	Texture* texture;
 	Camera* camera;
@@ -46,7 +47,7 @@ public:
 	Entity(Mesh* mesh, Texture* texture, Camera* camera, Shader* shader);
 	std::vector<Vector3> vertexs;
 	std::vector<Vector2> uvs;
-	Matrix44 modelMatrix;
+	
 
 	void Render();
 	//void Render(Image* framebuffer, Camera* camera, const Color& c, FloatImage* zBuffer, bool oculsions, Shader* shader);
