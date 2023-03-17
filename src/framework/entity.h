@@ -5,14 +5,7 @@
 #include "image.h"
 #include "texture.h"
 #include "shader.h"
-
-enum class eRenderMode {
-	POINTCLOUD, //punts
-	WIREFRAME, //Malla P2
-	TRIANGLES, //PlainColor
-	TRIANGLES_INTERPOLATED //coord. baricentriques
-};
-
+#include "material.h"
 
 
 class Entity
@@ -36,6 +29,7 @@ private:
 	Texture* texture;
 	Camera* camera;
 	Shader* shader;
+	Material* material;
 
 
 	//bool btext = false;
@@ -56,15 +50,5 @@ public:
 
 	Matrix44 GetModelMatrix();
 	Texture* GetTexture();
-
-	//Funcions per accedir al bool de textures i modificar-lo
-	/*
-	bool GetBoolTexture();
-	void SetBoolTexture(bool btext);
-	//Funcions per accedir al mode de pintar i canviar-lo
-	eRenderMode GetPaintMode();
-	void SetPaintMode(eRenderMode mode);
-	*/
-
 
 };

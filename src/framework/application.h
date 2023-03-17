@@ -11,15 +11,15 @@
 #include "mesh.h"
 #include "entity.h"
 #include "camera.h"
+#include "light.h"
+#include "material.h"
 
 class Application
 {
 public:
 
 	Camera* camera;
-	Mesh* quad;
 	Shader* shader;
-	Texture* fruites;
 	float option = -1.0;
 	int menu = 0;
 
@@ -27,6 +27,8 @@ public:
 	Mesh* lee_mesh;
 	Texture* lee_texture;
 	Entity lee_entity;
+
+	std::vector<Vector3> ka; //Ambient, variable global
 
 	// Window
 	SDL_Window* window = nullptr;

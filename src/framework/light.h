@@ -12,11 +12,10 @@ class Light
 {
 
 private:
-	Matrix44 modelMatrix;
-	Mesh* mesh;
-	Texture* texture;
-	Camera* camera;
-	Shader* shader;
+	std::vector<Vector3> position;
+	std::vector<Vector3> is;
+	std::vector<Vector3> id;
+
 
 public:
 	Light();
