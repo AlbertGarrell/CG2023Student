@@ -30,17 +30,7 @@ void Application::Init(void)
 	std::cout << "Initiating app..." << std::endl;
 	/******P4*****/
 	shader = new Shader();
-	quad = new Mesh();
-	//shader = Shader::Get("/shaders/quad.vs", "/shaders/quad.fs");
 	shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");
-	quad->CreateQuad();
-
-	fruites = new Texture();
-	bool c_texture1 = fruites->Load("/images/fruits.png");
-	if (c_texture1 == false) {
-		printf("Error al carregar la texture 'fruits.png'.\n");
-		exit(0);
-	}
 
 	/* CARREGUEM MESH I TEXTURE LEE, INICIALITZEM ENTITY  */
 	lee_mesh = new Mesh();

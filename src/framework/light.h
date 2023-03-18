@@ -14,7 +14,7 @@ class Light
 private:
 	std::vector<Vector3> lightPos;
 	std::vector<Vector3> id;
-	std::vector<Vector3> id;
+	std::vector<Vector3> is;
 
 
 public:
