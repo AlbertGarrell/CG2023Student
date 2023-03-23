@@ -18,35 +18,16 @@ Entity::Entity(Mesh* mesh, Texture* texture, Camera* camera, Shader* shader) {
 	this->camera = camera;
 	this->shader = shader;
 
-
-
-	//this->mode = eRenderMode::TRIANGLES_INTERPOLATED;
-	//this->btext = true;
-}
-
-Matrix44 Entity::GetModelMatrix() {
-	return this->modelMatrix;
-}
-
-Texture* Entity::GetTexture() {
-	return this->texture;
 }
 
 /*
-bool Entity::GetBoolTexture() {
-	return this->btext;
-}
-void Entity::SetBoolTexture(bool btext) {
-	this->btext = btext;
-}
-eRenderMode Entity::GetPaintMode() {
-	return this->mode;
-}
-void Entity::SetPaintMode(eRenderMode mode) {
-	this->mode = mode;
+void Entity::Render(sUniformData uniformData) {
+	uniformData.modelMatrix = this->modelMatrix;
+	this->material->Enable(uniformData);
+	this->mesh->Render();
+	this->material->Disable();
 }
 */
-
 
 void Entity::Render() {
 	//this->shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");

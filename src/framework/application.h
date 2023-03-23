@@ -11,7 +11,6 @@
 #include "mesh.h"
 #include "entity.h"
 #include "camera.h"
-#include "light.h"
 #include "material.h"
 
 class Application
@@ -28,8 +27,12 @@ public:
 	Texture* lee_texture;
 	Entity lee_entity;
 
-	std::vector<Vector3> ka; //Ambient, variable global
-
+	/*
+	sUniformData uniformData;
+	std::vector<sLight> lights; //per després
+	sLight light;
+	Vector3 ia; //Ambient, variable global
+	*/
 	// Window
 	SDL_Window* window = nullptr;
 	int window_width;

@@ -2,7 +2,7 @@
 #include "mesh.h"
 #include "shader.h"
 #include "utils.h" 
-//#include "entity.h"
+#include "entity.h"
 #include "texture.h"
 
 Application::Application(const char* caption, int width, int height)
@@ -28,9 +28,11 @@ Application::~Application()
 void Application::Init(void)
 {
 	std::cout << "Initiating app..." << std::endl;
-	/******P4*****/
+
+
 	shader = new Shader();
 	shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");
+
 
 	/* CARREGUEM MESH I TEXTURE LEE, INICIALITZEM ENTITY  */
 	lee_mesh = new Mesh();
@@ -54,6 +56,13 @@ void Application::Init(void)
 
 	lee_entity = Entity(lee_mesh, lee_texture, camera, shader);
 	lee_entity.SetModelMatrix(Vector3(0.0, -0.25, 0.0), 0.0, Vector3(1.0, 1.0, 1.0), Vector3(1.0, 1.0, 1.0));
+
+	/*
+	this->ia = Vector3(50/255.0, 50/255.0, 50/255.0);
+	light.id = 1.0;
+	light.is = 0.2;
+	light.lightPos = Vector3(2, 2, 2);
+	*/
 }
 
 // Render one frame
@@ -61,7 +70,7 @@ void Application::Render(void)
 {
 	/******P4*****/
 	/*Clean Buffer*/
-	/*Uniforms*/
+	/*Uniforms*/	
 
 
 	shader->Enable();
@@ -84,7 +93,8 @@ void Application::Render(void)
 // Called after render
 void Application::Update(float seconds_elapsed)
 {
-
+	camera->SetAspectRatio((float)window_width / window_height);
+	camera->UpdateProjectionMatrix();
 }
 
 //keyboard press event 
