@@ -14,7 +14,7 @@ public:
 	//Atributs
 	Matrix44 modelMatrix;
 	Mesh* mesh;
-	//Material* material;
+	Material* material;
 
 		//extra
 	Texture* texture;
@@ -29,7 +29,7 @@ public:
 	std::vector<Vector2> uvs;
 
 	void Render();
-	//void Render(sUniformData uniformData);
+	void Render(sUniformData uniformData);
 
 	//void Render(Image* framebuffer, Camera* camera, const Color& c, FloatImage* zBuffer, bool oculsions, Shader* shader);
 	void SetModelMatrix(Vector3 transalte, float angle, Vector3 rotate, Vector3 scale);

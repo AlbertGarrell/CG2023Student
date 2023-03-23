@@ -6,7 +6,7 @@
 #include "shader.h"
 #include "application.h"
 
-/*
+
 struct sLight { //Afegir una posició i un color intensity per diffuse i specular
 	Vector3 lightPos;
 	Vector3 id;
@@ -17,6 +17,7 @@ struct sUniformData {
 	//float ApplyTexture;
 	//int nLights;
 	std::vector<sLight> lights;
+	sLight light;
 	Matrix44 modelMatrix;
 	Matrix44 viewProjection;
 	Vector3 position;
@@ -41,4 +42,3 @@ public:
 	void Enable(const sUniformData& uniformData);
 	void Disable();
 };
-*/

@@ -3,6 +3,8 @@
 Entity::Entity() {
 }
 
+
+
 Entity::Entity(Mesh* mesh) {
 
 	this->mesh = mesh;
@@ -20,14 +22,14 @@ Entity::Entity(Mesh* mesh, Texture* texture, Camera* camera, Shader* shader) {
 
 }
 
-/*
+
 void Entity::Render(sUniformData uniformData) {
 	uniformData.modelMatrix = this->modelMatrix;
 	this->material->Enable(uniformData);
 	this->mesh->Render();
 	this->material->Disable();
 }
-*/
+
 
 void Entity::Render() {
 	//this->shader = Shader::Get("/shaders/raster.vs", "/shaders/raster.fs");

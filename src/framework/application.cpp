@@ -54,21 +54,20 @@ void Application::Init(void)
 	//camera.SetOrthographic(-1.5, 1.5, 1.5, -1.5, -1.5, 1.5);
 
 
-	lee_entity = Entity(lee_mesh, lee_texture, camera, shader);
-	lee_entity.SetModelMatrix(Vector3(0.0, -0.25, 0.0), 0.0, Vector3(1.0, 1.0, 1.0), Vector3(1.0, 1.0, 1.0));
+	lee_entity = new Entity(lee_mesh, lee_texture, camera, shader);
+	lee_entity->SetModelMatrix(Vector3(0.0, -0.25, 0.0), 0.0, Vector3(1.0, 1.0, 1.0), Vector3(1.0, 1.0, 1.0));
 
-	/*
-	this->ia = Vector3(50/255.0, 50/255.0, 50/255.0);
-	light.id = 1.0;
-	light.is = 0.2;
+	sLight light;
+	ia = Vector3(50/255.0, 50/255.0, 50/255.0);
+	light.id = Vector3(1.0);
+	light.is = Vector3(0.2);
 	light.lightPos = Vector3(2, 2, 2);
-	*/
+	
 }
 
 // Render one frame
 void Application::Render(void)
 {
-	/******P4*****/
 	/*Clean Buffer*/
 	/*Uniforms*/	
 
@@ -77,7 +76,7 @@ void Application::Render(void)
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	shader->SetMatrix44("u_model", lee_entity.GetModelMatrix());
+	shader->SetMatrix44("u_model", lee_entity->modelMatrix);
 	shader->SetMatrix44("u_viewprojection", camera->viewprojection_matrix);
 	shader->SetTexture("u_texture1", lee_texture);
 	lee_mesh->Render();

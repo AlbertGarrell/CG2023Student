@@ -22,17 +22,17 @@ public:
 	float option = -1.0;
 	int menu = 0;
 
-
+	Entity* lee_entity;
 	Mesh* lee_mesh;
 	Texture* lee_texture;
-	Entity lee_entity;
+	//Entity lee_entity;
 
-	/*
+	
 	sUniformData uniformData;
-	std::vector<sLight> lights; //per després
-	sLight light;
+	//std::vector<sLight> lights; //per després
+	
 	Vector3 ia; //Ambient, variable global
-	*/
+	
 	// Window
 	SDL_Window* window = nullptr;
 	int window_width;

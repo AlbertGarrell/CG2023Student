@@ -1,5 +1,5 @@
 #include "material.h"
-/*
+
 Material::Material() {
 }
 
@@ -18,18 +18,18 @@ void Material::Enable(const sUniformData& uniformData) {
 
 	this->shader->SetFloat("u_shininess", this->shininess);
 
-	//this->shader->SetTexture("u_texture", this->MaterialTexture);
+	this->shader->SetTexture("u_texture", this->texture);
 	//this->shader->SetTexture("u_texture_normals", this->MaterialNormals);
 
-	this->shader->SetFloat("u_apply_texture",);
+	//this->shader->SetFloat("u_apply_texture",);
 
-	this->shader->SetMatrix44("u_model", uniformData.EntityModelMatrix);
+	this->shader->SetMatrix44("u_model", uniformData.modelMatrix);
 	this->shader->SetMatrix44("u_viewprojection", uniformData.viewProjection);
-	this->shader->SetVector3("u_Ia", uniformData.ia);
-	this->shader->SetVector3("u_I_d", uniformData.);
-	this->shader->SetVector3("u_I_s", data.Lights[0].IntensitySpecular);
-	this->shader->SetVector3("u_light_position", data.Lights[0].LightPosition);
-	this->shader->SetVector3("u_eye_position", data.EyePosition);
+	this->shader->SetVector3("u_ia", uniformData.ia);
+	this->shader->SetVector3("u_id", uniformData.light.id);
+	this->shader->SetVector3("u_is", uniformData.light.is);
+	this->shader->SetVector3("u_light_position", uniformData.light.lightPos);
+	//this->shader->SetVector3("u_eye_position", uniformData.EyePosition);
 
 
 
@@ -38,4 +38,4 @@ void Material::Disable() {
 	this->shader->Disable();
 }
 
-*/
+
