@@ -16,7 +16,7 @@ public:
 	Mesh* mesh;
 	Material* material;
 
-		//extra
+	//extra
 	Texture* texture;
 	Camera* camera;
 	Shader* shader;
